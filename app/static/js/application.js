@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //connect to the socket server.
-    const socket = io.connect('http://192.168.67.130:8000');
+    const socket = io.connect('http://' + location.hostname + ':' + location.port);
     // var weight_received = [];
 
     //receive details from server

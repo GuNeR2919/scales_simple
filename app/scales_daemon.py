@@ -30,15 +30,6 @@ def close_scales_sock(sc_sock):  # destroy scales socket function
     return False, wght
 
 
-# def smscl_weight(wght):
-#     wght = re.search(r'^[0|w]*([^0|\D]\d*)\skg', wght)
-#     if wght:
-#         if wght.group(1).isnumeric():
-#             wght = str(wght.group(1))
-#             return True, wght
-#     else:
-#         return False, 0
-
 def newscl_weight(wght):
     wght = re.search(r'^\D*([-|+])\s*(\d*)kg', wght)
     if wght:
@@ -47,15 +38,6 @@ def newscl_weight(wght):
             return True, wght
     else:
         return False, 0
-
-
-# def bgscl_weight(weight):
-#     weight = re.search(r"(?<=\u000203)\d{6}", repr(weight))
-#     if weight:
-#         weight = re.search(r"[^0]\d*", repr(weight.group()))
-#         if weight.group().isnumeric():
-#             weight = str(weight.group())
-#             return True, weight
 
 
 def get_weight():
@@ -82,14 +64,13 @@ def get_weight():
             else:
                 try:
                     weight_rcv = scales_sock.recv(51).decode('ascii')
-                    print(weight_rcv)
                     if not weight_rcv:
                         weight = 'Connecting to the scales ...'
                         scales_con, smwght = close_scales_sock(scales_sock)
                         continue
                     time_cur = int(datetime.now().timestamp())
                     time_pid = int(datetime.now().strftime("%y%m%d%H%M%S"))
-                    print('Daemon: receive -', weight_rcv)
+                    # print('Daemon: receive -', weight_rcv)
                     smscl, smwght = newscl_weight(weight_rcv)
                     if smscl:
                         weight = smwght
