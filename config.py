@@ -11,7 +11,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WEIGHTS_PER_PAGE = 10
-    SCALES_HOST = '192.168.6.18'
-    SCALES_PORT = 11001
-    # SCALES_HOST = '192.168.2.70'
-    # SCALES_PORT = 4196
+    # SCALES_HOST = '192.168.6.18'
+    # SCALES_PORT = 11001
+    SCALES_HOST = '192.168.2.70'
+    SCALES_PORT = 4196
