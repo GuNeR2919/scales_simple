@@ -74,7 +74,7 @@ def get_weight():
                     smscl, smwght = newscl_weight(weight_rcv)
                     if smscl:
                         weight = smwght
-                        if weight_stamp != smwght and weight_rcv != 0:
+                        if weight_stamp != smwght and weight_stamp != 0:
                             time_stamp = time_cur
                             weight_stamp = smwght
                             db_new = True
