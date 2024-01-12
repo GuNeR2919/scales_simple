@@ -31,7 +31,7 @@ def close_scales_sock(sc_sock):  # destroy scales socket function
 
 
 def newscl_weight(wght):
-    wght = re.search(r'^\D*0*(\d*)kg', wght)
+    wght = re.search(r'^\D*(\d*)kg', wght)
     if wght:
         # if str(wght.group(1)) in ('-', '+'):
         wght = str(wght.group(1))
