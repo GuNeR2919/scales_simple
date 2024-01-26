@@ -43,7 +43,7 @@ def newscl_weight(wght):
 def get_weight():
     global weight
     time_stamp = 0
-    weight_stamp = None
+    weight_stamp = 0
     db_new = True
     scales_con = False
     scales_sock = None
@@ -87,9 +87,13 @@ def get_weight():
                                                    weight=weight_stamp,
                                                    pid=time_pid)
                                 db.session.add(weight_db)
-                                db.session.commit()
-                                db_new = False
-                                print('Daemon: record added to DB')
+                                try:
+                                    db.session.commit()
+                                    db_new = False
+                                    print('Daemon: record added to DB')
+                                except:
+                                    db.session.rollback()
+                                    raise
                     else:
                         weight = 0
                 except BaseException as msg:
