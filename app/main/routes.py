@@ -1,3 +1,4 @@
+from asyncio import threads
 from time import sleep
 from flask import render_template, url_for, request, current_app
 from threading import Thread, Event
@@ -11,15 +12,22 @@ print('/app/main/routes.py')
 
 thread = Thread()
 thread_stop_event = Event()
+clients = 0
+
+print('First thread status is', thread)
+
 
 def get_weight():
     """
     Send current weight to client
     """
-    while not thread_stop_event.is_set():
-        print(f'Client: received weight is {scales_daemon.weight}')
-        socket.emit('weight', {'data': scales_daemon.weight})
-        sleep(1)
+    while True:
+        if not thread_stop_event.is_set():
+            print(f'Client: received weight is {scales_daemon.weight}')
+            socket.emit('weight', {'data': scales_daemon.weight})
+            sleep(2)
+        else:
+            continue
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -48,14 +56,25 @@ def weights():
 
 @socket.on('connect')
 def test_connect():
+    global clients
     global thread
-    print('Client connected')
-    if not thread.is_alive():
+    clients += 1
+    ip = request.remote_addr
+    print(f'Client %s connected. IP %s' % (clients, ip))
+    if not thread.is_alive() and not thread_stop_event.is_set():
         print('Starting client thread')
         thread = socket.start_background_task(get_weight)
+    else:
+        print('Continue client thread')
+        thread_stop_event.clear()
 
 
 @socket.on('disconnect')
 def test_disconnect():
+    global clients
     print('Client disconnected')
-    # thread_stop_event.set()
+    clients -= 1
+    print('Clients left: %s' % clients)
+    if clients == 0:
+        print('Pausing client thread')
+        thread_stop_event.set()

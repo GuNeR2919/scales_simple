@@ -68,7 +68,7 @@ def get_weight():
                     weight_rcv = scales_sock.recv(51).decode('ascii')
                     if not weight_rcv:
                         weight = 'Connecting to the scales ...'
-                        # scales_con, smwght = close_scales_sock(scales_sock)
+                        scales_con, smwght = close_scales_sock(scales_sock)
                         continue
                     time_cur = int(datetime.now().timestamp())
                     time_pid = int(datetime.now().strftime("%y%m%d%H%M%S"))
