@@ -7,6 +7,8 @@ from datetime import datetime
 from app.models import Weight
 from flask import current_app
 
+print('/app/scales_daemon.py')
+
 weight = 0
 
 

@@ -1,5 +1,7 @@
 from app import db
 
+print('/app/models.py')
+
 
 class Weight(db.Model):
     rowid = db.Column(db.Integer, primary_key=True)

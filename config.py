@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 
+print('/config.py')
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
@@ -13,5 +15,5 @@ class Config(object):
     WEIGHTS_PER_PAGE = 10
     # SCALES_HOST = '192.168.6.18'
     # SCALES_PORT = 11001
-    SCALES_HOST = '192.168.2.70'
+    SCALES_HOST = '192.168.251.39'
     SCALES_PORT = 4196

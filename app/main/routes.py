@@ -6,11 +6,11 @@ from app.main import bp
 from app.models import Weight
 from datetime import datetime, timezone
 
+print('/app/main/routes.py')
 # socketio = SocketIO(current_app._get_current_object(), async_mode=None, logger=False, engine_logger=False)
 
 thread = Thread()
 thread_stop_event = Event()
-
 
 def get_weight():
     """
@@ -25,7 +25,7 @@ def get_weight():
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
-    scales_daemon.start_daemon()
+    # scales_daemon.start_daemon()
     return render_template('index.html')
 
 
@@ -58,3 +58,4 @@ def test_connect():
 @socket.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
+    thread_stop_event.set()

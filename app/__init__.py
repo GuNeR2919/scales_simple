@@ -4,7 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_socketio import SocketIO
-from threading import Thread, Event
+# from threading import Thread, Event
+
+print('/app/__init__.py')
 
 db = SQLAlchemy()
 migrate = Migrate()
