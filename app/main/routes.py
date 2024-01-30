@@ -58,4 +58,4 @@ def test_connect():
 @socket.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
-    thread_stop_event.set()
+    # thread_stop_event.set()
