@@ -74,13 +74,15 @@ def get_weight():
                     smscl, smwght = newscl_weight(weight_rcv)
                     if smscl:
                         weight = smwght
-                        if weight_stamp != smwght and weight_stamp != 0:
+                        if weight_stamp != smwght:
                             time_stamp = time_cur
                             weight_stamp = smwght
                             db_new = True
                             print('Daemon: time_stamp -', time_pid)
+                            # print('Daemon: weight_stamp -', weight_stamp)
                         else:
-                            if time_cur - time_stamp >= 15 and db_new:
+                            if time_cur - time_stamp >= 15 and db_new and weight_stamp != 0:
+                                # print('debug3')
                                 weight_db = Weight(mtime=time_cur,
                                                    yard='jel1',
                                                    typ='',

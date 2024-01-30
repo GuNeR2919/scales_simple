@@ -4,11 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_socketio import SocketIO
+from threading import Thread, Event
 
 db = SQLAlchemy()
 migrate = Migrate()
 moment = Moment()
 socket = SocketIO()
+# thread = Thread()
+# thread_stop_event = Event()
 
 
 def create_app(config_class=Config):
