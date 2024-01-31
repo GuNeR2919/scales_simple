@@ -51,7 +51,7 @@ def weights():
         w.mtime = datetime.fromtimestamp(w.mtime, tz=timezone.utc)
     return render_template('weights.html', title='Weights list',
                            weights=weight.items, next_url=next_url,
-                           prev_url=prev_url)
+                           prev_url=prev_url, pagination=weight)
 
 
 @socket.on('connect')

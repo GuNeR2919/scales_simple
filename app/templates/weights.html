@@ -7,35 +7,100 @@
     {% endif %}
 {#    {{ moment.include_jquery() }}#}
     {{ moment.include_moment() }}
+{#    <style>#}
+{#      .styled-table {#}
+{#        border-collapse: collapse;#}
+{#        margin: 25px 0;#}
+{#        font-size: 0.9em;#}
+{#        font-family: sans-serif;#}
+{#        min-width: 300px;#}
+{#        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);#}
+{#      }#}
+{#      .styled-table thead tr {#}
+{#        background-color: #009879;#}
+{#        color: #ffffff;#}
+{#        text-align: left;#}
+{#      }#}
+{#      .styled-table th,#}
+{#      .styled-table td {#}
+{#        padding: 12px 15px;#}
+{#      }#}
+{#      .styled-table tbody tr {#}
+{#        border-bottom: 1px solid #dddddd;#}
+{#      }#}
+{##}
+{#      .styled-table tbody tr:nth-of-type(even) {#}
+{#        background-color: #f3f3f3;#}
+{#      }#}
+{##}
+{#      .styled-table tbody tr:last-of-type {#}
+{#        border-bottom: 2px solid #009879;#}
+{#      }#}
+{#    </style>#}
     <style>
-      .styled-table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        font-family: sans-serif;
-        min-width: 300px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      }
-      .styled-table thead tr {
-        background-color: #009879;
-        color: #ffffff;
-        text-align: left;
-      }
-      .styled-table th,
-      .styled-table td {
-        padding: 12px 15px;
-      }
-      .styled-table tbody tr {
-        border-bottom: 1px solid #dddddd;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-      .styled-table tbody tr:nth-of-type(even) {
-        background-color: #f3f3f3;
-      }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-      .styled-table tbody tr:last-of-type {
-        border-bottom: 2px solid #009879;
-      }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+        .pagination a.active {
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 0 4px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: 1px solid #4CAF50;
+        }
+
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
     </style>
   </head>
   <body>
@@ -54,12 +119,37 @@
         {% endfor %}
       </tbody>
     </table>
-    {% if prev_url %}
-      <a href="{{ prev_url }}">Newer weights</a>
+    <div class="pagination">
+    {% if pagination.has_prev %}
+        <a class='page-number' href="{{ url_for('main.weights', page=pagination.prev_num) }}">
+            {{ '<<<' }}
+        </a>
     {% endif %}
-    |
-    {% if next_url %}
-      <a href="{{ next_url }}">Older weights</a>
+
+    {% for number in pagination.iter_pages() %}
+        {% if pagination.page != number %}
+                <a
+                    href="{{ url_for('main.weights', page=number) }}">
+                {{ number }}
+                </a>
+        {% else %}
+            <a class='active' href="#">{{ number }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if pagination.has_next %}
+        <a class='page-number'
+            href="{{ url_for('main.weights', page=pagination.next_num) }}">
+            {{ '>>>' }}
+        </a>
     {% endif %}
+</div>
+{#    {% if prev_url %}#}
+{#      <a href="{{ prev_url }}">Newer weights</a>#}
+{#    {% endif %}#}
+{#    |#}
+{#    {% if next_url %}#}
+{#      <a href="{{ next_url }}">Older weights</a>#}
+{#    {% endif %}#}
   </body>
 </html>
