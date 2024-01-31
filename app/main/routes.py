@@ -40,9 +40,9 @@ def index():
 @bp.route('/weights', methods=['GET', 'POST'])
 def weights():
     page = request.args.get('page', 1, type=int)
-    weight = Weight.query.order_by(
-        Weight.mtime.desc()).paginate(page=page, per_page=current_app.config['WEIGHTS_PER_PAGE'],
-                                      error_out=False)
+    weight = Weight.query.order_by(Weight.mtime.desc()).paginate(page=page,
+                                                                 per_page=current_app.config['WEIGHTS_PER_PAGE'],
+                                                                 error_out=False)
     next_url = url_for('main.weights', page=weight.next_num) \
         if weight.has_next else None
     prev_url = url_for('main.weights', page=weight.prev_num) \
