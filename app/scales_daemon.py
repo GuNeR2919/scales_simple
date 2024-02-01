@@ -83,7 +83,8 @@ def get_weight():
                             print('Daemon: time_stamp -', time_pid)
                             # print('Daemon: weight_stamp -', weight_stamp)
                         else:
-                            if time_cur - time_stamp >= 15 and db_new and weight_stamp != 0:
+                            if time_cur - time_stamp >= 15 and db_new and weight_stamp != 0 and weight_stamp != 20 \
+                                    and weight_stamp != 40 and weight_stamp != 60 and weight_stamp != 80:
                                 # print('debug3')
                                 weight_db = Weight(mtime=time_cur,
                                                    weight=weight_stamp,
