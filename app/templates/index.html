@@ -85,7 +85,7 @@
 
         .weight-display {
             width: 80%;
-            max-width: 300px;
+            max-width: 900px;
             margin: 20px auto;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #fff;
@@ -105,6 +105,13 @@
             color: #555;
         }
 
+        .weight-display a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            margin-top: 10px;
+        }
+
         {#.weight-display a {#}
         {#    color: #333;#}
         {#    padding: 8px 16px;#}
@@ -120,11 +127,11 @@
   </style>
 </head>
 <body>
-    <div class="weight-display">
-        <a style="text-decoration: none;" href="{{ url_for('main.weights') }}">
+    <a href="{{ url_for('main.weights') }}" class="weight-display-link">
+        <div class="weight-display">
             <h2>Current weight (kg)</h2>
             <p id="weight">Connecting to scales...</p>
-        </a>
-    </div>
+        </div>
+    </a>
 </body>
 </html>
