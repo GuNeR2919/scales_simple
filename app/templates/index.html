@@ -6,31 +6,125 @@
   <script src="static/js/application.js"></script>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style>
-    .row {
-      /* border: 5px outset red; */
-      background-color: #f3f3f3;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      font-family: sans-serif;
-    }
-    .title {
-      font-size: 4vw;
-    }
-    .weight {
-      font-size: 10vw;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: #fff;
+            border: 1px solid #4CAF50;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .weight-display {
+            width: 80%;
+            max-width: 300px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .weight-display h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .weight-display p {
+            font-size: 10vw;
+            margin: 0;
+            color: #555;
+        }
+
+        {#.weight-display a {#}
+        {#    color: #333;#}
+        {#    padding: 8px 16px;#}
+        {#    text-decoration: none;#}
+        {#    transition: background-color 0.3s;#}
+        {#    border: 1px solid #ddd;#}
+        {#    margin: 0 4px;#}
+        {#}#}
+        {##}
+        {#.weight-display a:hover:not(.active) {#}
+        {#    background-color: #ddd;#}
+        {#}#}
   </style>
 </head>
 <body>
-  <a style="text-decoration: none;" href="{{ url_for('main.weights') }}">
-    <div class="container" id="content">
-      <div class="row">
-        <div class="title">
-          Current weight (kg)
-        </div>
-        <div id="weight" class="weight">Connecting to scales...</div>
-      </div>
+    <div class="weight-display">
+        <a style="text-decoration: none;" href="{{ url_for('main.weights') }}">
+            <h2>Current weight (kg)</h2>
+            <p id="weight">Connecting to scales...</p>
+        </a>
     </div>
-  </a>
 </body>
 </html>

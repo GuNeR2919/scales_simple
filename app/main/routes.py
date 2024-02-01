@@ -52,7 +52,6 @@ def weights():
                            prev_url=prev_url, pagination=weight)
 
 
-
 @socket.on('connect')
 def test_connect():
     global clients
