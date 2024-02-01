@@ -5,8 +5,8 @@ print('/scales_simple.py')
 
 app = create_app()
 
-# with app.app_context():
-#     scales_daemon.start_daemon()
+with app.app_context():
+    scales_daemon.start_daemon()
 
 
 @app.shell_context_processor
