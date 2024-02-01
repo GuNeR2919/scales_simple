@@ -86,8 +86,6 @@ def get_weight():
                             if time_cur - time_stamp >= 15 and db_new and weight_stamp != 0:
                                 # print('debug3')
                                 weight_db = Weight(mtime=time_cur,
-                                                   yard='jel1',
-                                                   typ='',
                                                    weight=weight_stamp,
                                                    pid=time_pid)
                                 db.session.add(weight_db)

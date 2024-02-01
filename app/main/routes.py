@@ -1,4 +1,3 @@
-from asyncio import threads
 from time import sleep
 from flask import render_template, url_for, request, current_app
 from threading import Thread, Event
@@ -8,7 +7,6 @@ from app.models import Weight
 from datetime import datetime, timezone
 
 print('/app/main/routes.py')
-# socketio = SocketIO(current_app._get_current_object(), async_mode=None, logger=False, engine_logger=False)
 
 thread = Thread()
 thread_stop_event = Event()
@@ -52,6 +50,7 @@ def weights():
     return render_template('weights.html', title='Weights list',
                            weights=weight.items, next_url=next_url,
                            prev_url=prev_url, pagination=weight)
+
 
 
 @socket.on('connect')
