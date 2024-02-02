@@ -1,148 +1,45 @@
-<html lang="en">
-  <head>
-    {% if title %}
-      <title>{{ title }}</title>
-    {% else %}
-      <title>Weight list_</title>
-    {% endif %}
-    {{ moment.include_moment() }}
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination a {
-            color: #333;
-            padding: 8px 16px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            border: 1px solid #ddd;
-            margin: 0 4px;
-        }
-
-        .pagination a.active {
-            background-color: #4CAF50;
-            color: #fff;
-            border: 1px solid #4CAF50;
-        }
-
-        .pagination a:hover:not(.active) {
-            background-color: #ddd;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .scoreboard {
-            width: 80%;
-            max-width: 600px;
-            margin: 20px auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .scoreboard h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .scoreboard p {
-            margin: 0;
-            color: #555;
-        }
-    </style>
-  </head>
-  <body>
+{% extends "base.html" %}
+{% block content %}
     <a href="{{ url_for('main.index') }}" class="back-button"> Back to scales</a>
     <table class="styled-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Weight</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for weight in weights %}
-          {% include 'weights_tb.html' %}
-        {% endfor %}
-      </tbody>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for weight in weights %}
+                {% include 'weights_tb.html' %}
+            {% endfor %}
+        </tbody>
     </table>
     <div class="pagination">
-    {% if pagination.has_prev %}
-        <a class='page-number' href="{{ url_for('main.weights', page=pagination.prev_num) }}">
-            {{ '<<<' }}
-        </a>
-    {% endif %}
-
-    {% for number in pagination.iter_pages() %}
-        {% if pagination.page != number %}
-                <a href="{{ url_for('main.weights', page=number) }}">
-                {{ number }}
-                </a>
-        {% else %}
-            <a class='active' href="#">{{ number }}</a>
+        {% if pagination.has_prev %}
+            <a class='page-number' href="{{ url_for('main.weights', page=pagination.prev_num) }}">
+                {{ '<<<' }}
+            </a>
         {% endif %}
-    {% endfor %}
 
-    {% if pagination.has_next %}
-        <a class='page-number' href="{{ url_for('main.weights', page=pagination.next_num) }}">
-            {{ '>>>' }}
-        </a>
-    {% endif %}
-</div>
-  </body>
-</html>
+        {% for number in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+            {% if number %}
+                {% if pagination.page != number %}
+                    <a href="{{ url_for('main.weights', page=number) }}">
+                        {{ number }}
+                    </a>
+                {% else %}
+                    <a class='active' href="#">{{ number }}</a>
+                {% endif %}
+            {% else %}
+                <a href="#">...</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+            <a class='page-number' href="{{ url_for('main.weights', page=pagination.next_num) }}">
+                {{ '>>>' }}
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
