@@ -28,8 +28,6 @@ def get_weight():
             continue
 
 
-
-
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():

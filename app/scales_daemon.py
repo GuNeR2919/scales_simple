@@ -32,8 +32,19 @@ def close_scales_sock(sc_sock):  # destroy scales socket function
     return False, wght
 
 
-def newscl_weight(wght):
-    wght = re.search(r'^\D*(\d*)kg', wght)
+# def newscl_weight(wght):
+#     wght = re.search(r'^\D*(\d*)kg', wght)
+#     if wght:
+#         # if str(wght.group(1)) in ('-', '+'):
+#         wght = str(wght.group(1))
+#         return True, wght
+#     else:
+#         return False, 0
+
+
+def get_scls_weight(wght):
+    compiled_pattern = re.compile(current_app.config['SCALES_PATTERN'])
+    wght = compiled_pattern.search(wght)
     if wght:
         # if str(wght.group(1)) in ('-', '+'):
         wght = str(wght.group(1))
@@ -73,7 +84,7 @@ def get_weight():
                     time_cur = int(datetime.now().timestamp())
                     time_pid = int(datetime.now().strftime("%y%m%d%H%M%S"))
                     # print('Daemon: receive -', weight_rcv)
-                    smscl, smwght = newscl_weight(weight_rcv)
+                    smscl, smwght = get_scls_weight(weight_rcv)
                     if smscl:
                         weight = smwght
                         if weight_stamp != smwght:
