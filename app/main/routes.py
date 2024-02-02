@@ -28,10 +28,11 @@ def get_weight():
             continue
 
 
+
+
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
-    # scales_daemon.start_daemon()
     return render_template('index.html')
 
 
