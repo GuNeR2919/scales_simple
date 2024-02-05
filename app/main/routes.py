@@ -31,7 +31,7 @@ def get_weight():
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title= current_app.config['SCALES_TITLE'])
 
 
 @bp.route('/weights', methods=['GET', 'POST'])

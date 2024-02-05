@@ -13,10 +13,13 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WEIGHTS_PER_PAGE = 10
+
+    # SCALES_TITLE = 'Vehicle scales'
     # SCALES_HOST = '192.168.6.18'
-    # SCALES_PORT = 11001
-    SCALES_HOST = '192.168.6.18'
     # SCALES_PORT = 4196
     # SCALES_PATTERN = r'^\D*(\d*)kg'
+
+    SCALES_TITLE = 'Portable scales'
+    SCALES_HOST = '192.168.2.10'
     SCALES_PORT = 11001
     SCALES_PATTERN = r'^[0|w]*([^0|\D]\d*)\skg'
