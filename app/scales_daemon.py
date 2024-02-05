@@ -95,7 +95,21 @@ def get_weight():
                             print('Daemon: weight_stamp -', weight_stamp)
                         else:
                             if time_cur - time_stamp >= 15 and db_new and weight_stamp != "0" and weight_stamp != "20" \
-                                    and weight_stamp != "40" and weight_stamp != "60" and weight_stamp != "80":
+                                    and weight_stamp != "40" and weight_stamp != "60" and weight_stamp != "80" \
+                                    and current_app.config['SCALES_TITLE'] == 'Vehicle scales':
+                                weight_db = Weight(mtime=time_cur,
+                                                   weight=weight_stamp,
+                                                   pid=time_pid)
+                                db.session.add(weight_db)
+                                try:
+                                    db.session.commit()
+                                    db_new = False
+                                    print('Daemon: record added to DB')
+                                except:
+                                    db.session.rollback()
+                                    raise
+                            elif time_cur - time_stamp >= 15 and db_new and weight_stamp != "0" \
+                                    and current_app.config['SCALES_TITLE'] == 'Portable scales':
                                 weight_db = Weight(mtime=time_cur,
                                                    weight=weight_stamp,
                                                    pid=time_pid)
