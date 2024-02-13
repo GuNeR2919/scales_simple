@@ -1,10 +1,11 @@
 from time import sleep
 from flask import render_template, url_for, request, current_app
 from threading import Thread, Event
-from app import socket, scales_daemon
+from app import socket, scales_daemon, db
 from app.main import bp
 from app.models import Weight
 from datetime import datetime, timezone
+import sqlalchemy as sa
 
 print('/app/main/routes.py')
 
@@ -37,18 +38,17 @@ def index():
 @bp.route('/weights', methods=['GET', 'POST'])
 def weights():
     page = request.args.get('page', 1, type=int)
-    weight = Weight.query.order_by(Weight.mtime.desc()).paginate(page=page,
-                                                                 per_page=current_app.config['WEIGHTS_PER_PAGE'],
-                                                                 error_out=False)
-    next_url = url_for('main.weights', page=weight.next_num) \
-        if weight.has_next else None
-    prev_url = url_for('main.weights', page=weight.prev_num) \
-        if weight.has_prev else None
-    for w in weight.items:
+    query = sa.select(Weight).where(Weight.weight >= current_app.config['MINIMUM_FILTERED_WEIGHT']).order_by(Weight.mtime.desc())
+    records = db.paginate(query, page=page, per_page=current_app.config['WEIGHTS_PER_PAGE'], error_out=False)
+    next_url = url_for('main.weights', page=records.next_num) \
+        if records.has_next else None
+    prev_url = url_for('main.weights', page=records.prev_num) \
+        if records.has_prev else None
+    for w in records.items:
         w.mtime = datetime.fromtimestamp(w.mtime, tz=timezone.utc)
     return render_template('weights.html', title='Weights list',
-                           weights=weight.items, next_url=next_url,
-                           prev_url=prev_url, pagination=weight)
+                           weights=records.items, next_url=next_url,
+                           prev_url=prev_url, pagination=records)
 
 
 @socket.on('connect')

@@ -18,8 +18,10 @@ class Config(object):
     SCALES_HOST = '192.168.2.70'
     SCALES_PORT = 4196
     SCALES_PATTERN = r'^\D*(\d*)kg'
+    MINIMUM_FILTERED_WEIGHT = 1000
 
     # SCALES_TITLE = 'Portable scales'
     # SCALES_HOST = '192.168.2.10'
     # SCALES_PORT = 11001
     # SCALES_PATTERN = r'^[0|w]*([^0|\D]\d*)\skg'
+    # MINIMUM_FILTERED_WEIGHT = 100
