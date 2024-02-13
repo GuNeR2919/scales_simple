@@ -96,7 +96,8 @@ def get_weight():
                         else:
                             if time_cur - time_stamp >= 15 and db_new and weight_stamp != "0" and weight_stamp != "20" \
                                     and weight_stamp != "40" and weight_stamp != "60" and weight_stamp != "80" \
-                                    and weight_stamp != "120" and current_app.config['SCALES_TITLE'] == 'Vehicle scales':
+                                    and weight_stamp != "120" and \
+                                    current_app.config['SCALES_TITLE'] == 'Vehicle scales':
                                 weight_db = Weight(mtime=time_cur,
                                                    weight=weight_stamp,
                                                    pid=time_pid)
