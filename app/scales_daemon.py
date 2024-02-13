@@ -94,7 +94,8 @@ def get_weight():
                             print('Daemon: time_stamp -', time_pid)
                             print('Daemon: weight_stamp -', weight_stamp)
                         else:
-                            if time_cur - time_stamp >= 15 and db_new and weight_stamp != "0" and weight_stamp != "20" \
+                            if time_cur - time_stamp >= current_app.config['WAIT_TIME'] and db_new \
+                                    and weight_stamp != "0" and weight_stamp != "20" \
                                     and weight_stamp != "40" and weight_stamp != "60" and weight_stamp != "80" \
                                     and weight_stamp != "120" \
                                     and current_app.config['SCALES_TITLE'] == 'Vehicle scales':
@@ -109,7 +110,8 @@ def get_weight():
                                 except:
                                     db.session.rollback()
                                     raise
-                            elif time_cur - time_stamp >= 15 and db_new and weight_stamp != "0" \
+                            elif time_cur - time_stamp >= current_app.config['WAIT_TIME'] and db_new \
+                                    and weight_stamp != "0" \
                                     and current_app.config['SCALES_TITLE'] == 'Portable scales':
                                 weight_db = Weight(mtime=time_cur,
                                                    weight=weight_stamp,
