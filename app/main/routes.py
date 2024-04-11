@@ -22,7 +22,7 @@ def get_weight():
     """
     while True:
         if not thread_stop_event.is_set():
-            print(f'[{datetime.now().strftime("%y.%m.%d.%H:%M:%S")}] Client: received weight is {scales_daemon.weight}')
+            print(f'[{datetime.now().strftime("%y.%m.%d %H:%M:%S")}] Client: received weight is {scales_daemon.weight}')
             socket.emit('weight', {'data': scales_daemon.weight})
             sleep(2)
         else:
