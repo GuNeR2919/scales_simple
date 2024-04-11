@@ -18,7 +18,7 @@ print('First thread status is', thread)
 
 def get_weight():
     """
-    Send current weight to client
+    Send current weight to client with date
     """
     while True:
         if not thread_stop_event.is_set():
